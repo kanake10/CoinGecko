@@ -1,8 +1,12 @@
 package com.example.geckocoin.presentation.screens.home
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -24,10 +28,13 @@ import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.example.geckocoin.domain.models.Exchanges
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(navController: NavController, viewModel: ExchangesViewModel = hiltViewModel()) {
 
     val res = viewModel.state.value
+
+
 
     if (res.isLoading) {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -41,7 +48,7 @@ fun HomeScreen(navController: NavController, viewModel: ExchangesViewModel = hil
         }
     }
 
-    LazyColumn {
+    LazyVerticalGrid(cells = GridCells.Fixed(2)) {
         res.data?.let {
             items(it) {
                 ExchangesScreen(it)
@@ -50,35 +57,39 @@ fun HomeScreen(navController: NavController, viewModel: ExchangesViewModel = hil
         }
 
     }
-
-
 }
 
 @Composable
 fun ExchangesScreen(it: Exchanges) {
 
-    Row(
-        modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+    Card(
+        modifier = Modifier.fillMaxWidth()
+            .background(color = Color.Black),
+        shape = RoundedCornerShape(15.dp),
+        elevation = 5.dp
     ) {
-
-        Spacer(modifier = Modifier.width(6.dp))
-
-
-        Image(
+        Column(
             modifier = Modifier
-                .width(190.dp)
-                .clip(RoundedCornerShape(10.dp))
-                .height(190.dp),
-            painter = rememberImagePainter(data = it.image.replace("small","large")),
-            contentDescription = null,
-            contentScale = ContentScale.Crop
-        )
+                .padding(8.dp)
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.Center
+        ) {
 
-        Divider()
+            Image(
+                modifier = Modifier
+                    .width(190.dp)
+                    .clip(RoundedCornerShape(10.dp))
+                    .height(190.dp),
+                painter = rememberImagePainter(data = it.image.replace("small", "large")),
+                contentDescription = null,
+                contentScale = ContentScale.Crop
+            )
+            Spacer(modifier = Modifier.width(6.dp))
 
+            Text(text = it.name)
+
+            //      Divider()
+
+        }
     }
-
 }
