@@ -1,4 +1,4 @@
-package com.example.geckocoin.presentation.screens.home
+package com.example.geckocoin.presentation.screens.exchanges
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -20,23 +20,24 @@ class ExchangesViewModel @Inject constructor(
     val state: State<ExchangesState> = _state
 
     init {
-        getExchanges()
+        getCoins()
     }
 
-    fun getExchanges() {
-        getExchangesUseCase().onEach {
-            when (it) {
+    private fun getCoins() {
+        getExchangesUseCase().onEach { result ->
+            when (result) {
+                is Resource.Success -> {
+                    _state.value = ExchangesState(exchanges = result.data ?: emptyList())
+                }
+                is Resource.Error -> {
+                    _state.value = ExchangesState(
+                        error = result.message ?: "An unexpected error occured"
+                    )
+                }
                 is Resource.Loading -> {
                     _state.value = ExchangesState(isLoading = true)
                 }
-                is Resource.Success -> {
-                    _state.value = ExchangesState(data = it.data)
-                }
-                is Resource.Error -> {
-                    _state.value = ExchangesState(error = it.message.toString())
-                }
             }
         }.launchIn(viewModelScope)
-
     }
 }
