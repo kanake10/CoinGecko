@@ -1,7 +1,5 @@
 package com.example.geckocoin.presentation.screens.details
 
-import com.example.geckocoin.domain.usecases.GetSingleExchangeUseCase
-
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -13,6 +11,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.geckocoin.core.Constants
 import com.example.geckocoin.core.Resource
+import com.example.geckocoin.domain.usecases.GetExchangesUseCase
+import com.example.geckocoin.domain.usecases.GetSingleExchangeUseCase
 
 @HiltViewModel
 class ExchangesDetailsViewModel @Inject constructor(
@@ -20,32 +20,30 @@ class ExchangesDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-
-    val details = mutableStateOf(ExchangeDetailsState())
+    private val _state = mutableStateOf(ExchangesDetailsState())
+    val state: State<ExchangesDetailsState> = _state
 
     init {
-        savedStateHandle.getLiveData<String>("blogId").value?.let {
-            getBlogDetails(it)
+        savedStateHandle.get<String>(Constants.PARAM_ID)?.let { exchangesId ->
+            getCoin(exchangesId)
         }
     }
 
-    fun getBlogDetails(exchangesId: String) {
-        getSingleExchangeUseCase(exchangesId).onEach {
-            when (it) {
-                is Resource.Loading -> {
-                    details.value = ExchangeDetailsState(isLoading = true)
-                }
+    private fun getCoin(exchangesId: String) {
+        getSingleExchangeUseCase(exchangesId).onEach { result ->
+            when (result) {
                 is Resource.Success -> {
-                    details.value = ExchangeDetailsState(data = it.data)
+                    _state.value = ExchangesDetailsState(exchangesDetails = result.data)
                 }
                 is Resource.Error -> {
-                    details.value = ExchangeDetailsState(error = it.message.toString())
+                    _state.value = ExchangesDetailsState(
+                        error = result.message ?: "An unexpected error occured"
+                    )
+                }
+                is Resource.Loading -> {
+                    _state.value = ExchangesDetailsState(isLoading = true)
                 }
             }
-
-
         }.launchIn(viewModelScope)
     }
-
-
 }
