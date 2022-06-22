@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
                             ExchangesScreen(navController)
                         }
                         composable(
-                            route = NavItem.ExchangesDetails.route + "/{exchangesId}"
+                            route = NavItem.ExchangesDetails.route + "/{id}"
                         ) {
                             ExchangesDetailsScreen()
                         }

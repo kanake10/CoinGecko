@@ -20,10 +20,10 @@ class ExchangesViewModel @Inject constructor(
     val state: State<ExchangesState> = _state
 
     init {
-        getCoins()
+        getExchanges()
     }
 
-    private fun getCoins() {
+    private fun getExchanges() {
         getExchangesUseCase().onEach { result ->
             when (result) {
                 is Resource.Success -> {

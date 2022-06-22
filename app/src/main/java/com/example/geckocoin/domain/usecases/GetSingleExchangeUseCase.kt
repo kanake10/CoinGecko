@@ -14,10 +14,10 @@ import java.io.IOException
 class GetSingleExchangeUseCase @Inject constructor(
     private val repository: ExchangesRepository
 ) {
-    operator fun invoke(exchangesId: String): Flow<Resource<ExchangesDetails>> = flow {
+    operator fun invoke(id: String): Flow<Resource<ExchangesDetails>> = flow {
         try {
             emit(Resource.Loading<ExchangesDetails>())
-            val exchange = repository.getExchangesDetails(exchangesId).toExchangesDetails()
+            val exchange = repository.getExchangesDetails(id).toExchangesDetails()
             emit(Resource.Success<ExchangesDetails>(exchange))
         } catch(e: HttpException) {
             emit(Resource.Error<ExchangesDetails>(e.localizedMessage ?: "An unexpected error occured"))

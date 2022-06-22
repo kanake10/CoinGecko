@@ -12,5 +12,5 @@ interface CoinGeckoApi {
     suspend fun getExchanges():List<ExchangesDto>
 
     @GET(EXCHANGES_DETAILS_ENDPOINT)
-    suspend fun getExchangesDetails(@Path("id") exchangesId: String): ExchangesDetailsDto
+    suspend fun getExchangesDetails(@Path("id") id: String): ExchangesDetailsDto
 }

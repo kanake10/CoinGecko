@@ -13,8 +13,8 @@ class ExchangesRepositoryImpl @Inject constructor(
         return coinGeckoApi.getExchanges()
     }
 
-    override suspend fun getExchangesDetails(exchangesId: String): ExchangesDetailsDto {
-        return coinGeckoApi.getExchangesDetails(exchangesId)
+    override suspend fun getExchangesDetails(id: String): ExchangesDetailsDto {
+        return coinGeckoApi.getExchangesDetails(id)
     }
 
 

@@ -6,5 +6,5 @@ import com.example.geckocoin.data.dto.ExchangesDto
 
 interface ExchangesRepository {
     suspend fun getExchanges():List<ExchangesDto>
-    suspend fun getExchangesDetails(exchangesId : String): ExchangesDetailsDto
+    suspend fun getExchangesDetails(id : String): ExchangesDetailsDto
 }

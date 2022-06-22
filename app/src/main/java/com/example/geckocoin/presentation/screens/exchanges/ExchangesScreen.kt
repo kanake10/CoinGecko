@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -93,7 +94,6 @@ fun ExchangesScreenItem(exchanges: Exchanges,
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.Center
         ) {
-
             Image(
                 modifier = Modifier
                     .width(190.dp)
@@ -105,10 +105,13 @@ fun ExchangesScreenItem(exchanges: Exchanges,
             )
             Spacer(modifier = Modifier.width(6.dp))
 
-            Text(text = exchanges.name)
-
+            /**
+             * TODO style the text
+             */
+            Text(text = exchanges.name,
+                fontWeight = FontWeight.Bold
+            )
             //      Divider()
-
         }
     }
 }

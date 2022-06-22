@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.geckocoin.core.Constants
 import com.example.geckocoin.core.Resource
-import com.example.geckocoin.domain.usecases.GetExchangesUseCase
 import com.example.geckocoin.domain.usecases.GetSingleExchangeUseCase
 
 @HiltViewModel
@@ -24,13 +23,13 @@ class ExchangesDetailsViewModel @Inject constructor(
     val state: State<ExchangesDetailsState> = _state
 
     init {
-        savedStateHandle.get<String>(Constants.PARAM_ID)?.let { exchangesId ->
-            getCoin(exchangesId)
+        savedStateHandle.get<String>(Constants.PARAM_ID)?.let { id ->
+            getExchangesDetails(id)
         }
     }
 
-    private fun getCoin(exchangesId: String) {
-        getSingleExchangeUseCase(exchangesId).onEach { result ->
+    private fun getExchangesDetails(id: String) {
+        getSingleExchangeUseCase(id).onEach { result ->
             when (result) {
                 is Resource.Success -> {
                     _state.value = ExchangesDetailsState(exchangesDetails = result.data)

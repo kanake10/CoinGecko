@@ -7,7 +7,7 @@ object Constants {
     const val SEARCH_ENDPOINT ="/search"
     const val TRENDING_ENDPOINT ="/search/trending"
 
-    const val PARAM_ID = "exchangesId"
+    const val PARAM_ID = "id"
 
     const val COIN_GECKO_DB = "coingecko.db"
 }
