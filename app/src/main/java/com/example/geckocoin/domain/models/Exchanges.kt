@@ -1,7 +1,6 @@
 package com.example.geckocoin.domain.models
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+
 
 data class Exchanges(
     val country: String?,

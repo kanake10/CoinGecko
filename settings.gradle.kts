@@ -13,4 +13,5 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "GeckoCoin"
-include ':app'
+include (":app")
+
