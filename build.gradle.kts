@@ -1,5 +1,6 @@
 buildscript {
     val compose_version by extra("1.0.1")
+
     dependencies {
         classpath ("com.google.dagger:hilt-android-gradle-plugin:2.38.1")
     }
