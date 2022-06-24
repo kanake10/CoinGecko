@@ -42,6 +42,8 @@ while using the coins endpoint,navigation takes place though.
 All the dependencies (external libraries) are defined in the single place - Gradle `buildSrc` folder. This approach allows to easily manage dependencies and use the same dependency version across all modules.
 
 ## TODO
-Create bottom nav for the coins endpoint
-Navigate from exchanges screen to exchanges detail page 
-Use the search endpoint
+
+- Navigate from exchanges screen to exchanges detail page.
+- Use the search endpoint.
+- Create bottom nav for the coins endpoint.
+
