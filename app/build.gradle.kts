@@ -3,6 +3,19 @@ plugins {
     id ("org.jetbrains.kotlin.android")
     id ("kotlin-kapt")
     id ("dagger.hilt.android.plugin")
+    id ("kotlin-parcelize")
+    id ("com.google.devtools.ksp") version ("1.6.10-1.0.2")
+}
+
+kotlin {
+    sourceSets {
+        debug {
+            kotlin.srcDir("build/generated/ksp/debug/kotlin")
+        }
+        release {
+            kotlin.srcDir("build/generated/ksp/release/kotlin")
+        }
+    }
 }
 
 android {
@@ -90,9 +103,18 @@ dependencies {
     // Coil
     implementation ("io.coil-kt:coil-compose:1.4.0")
 
+    // Timber
+    implementation ("com.jakewharton.timber:timber:5.0.1")
+
+    // RamCosta Navigation
+    implementation ("io.github.raamcosta.compose-destinations:animations-core:1.3.4-beta")
+    ksp ("io.github.raamcosta.compose-destinations:ksp:1.3.4-beta")
+
     // Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("com.squareup.okhttp3:okhttp:5.0.0-alpha.2")
     implementation ("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
 }
+
+
