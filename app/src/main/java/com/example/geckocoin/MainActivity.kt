@@ -14,7 +14,6 @@ import com.example.geckocoin.presentation.screens.exchanges.ExchangesScreen
 import com.example.geckocoin.ui.theme.GeckoCoinTheme
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
