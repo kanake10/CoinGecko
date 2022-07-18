@@ -1,9 +1,9 @@
-plugins {
-    id ("com.android.application")
-    id ("org.jetbrains.kotlin.android")
-    id ("kotlin-kapt")
-    id ("dagger.hilt.android.plugin")
-    id ("kotlin-parcelize")
+plugins{
+    id(BuildPlugins.androidApplication)
+    id(BuildPlugins.kotlinAndroid)
+    id(BuildPlugins.kapt)
+    id(BuildPlugins.hilt)
+    id(BuildPlugins.parcelize)
     id ("com.google.devtools.ksp") version "1.6.10-1.0.2"
 }
 
@@ -18,15 +18,16 @@ kotlin {
     }
 }
 
+
 android {
-    compileSdk = 32
+    compileSdkVersion(AndroidSDK.compile)
 
     defaultConfig {
         applicationId = "com.example.geckocoin"
-        minSdk = 23
-        targetSdk = 32
-        versionCode = 1
-        versionName = "1.0"
+        minSdkVersion(AndroidSDK.min)
+        targetSdkVersion(AndroidSDK.target)
+        versionCode = Versions.code
+        versionName = Versions.name
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -64,13 +65,13 @@ android {
 }
 
 dependencies {
+    implementation (Libraries.ktxCore)
+    implementation (Libraries.composeui)
+    implementation (Libraries.material)
+    implementation (Libraries.tooling_preview)
+    implementation (Libraries.lifecycle_compose)
+    implementation (Libraries.activity_compose)
 
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.compose.ui:ui:${rootProject.extra["compose_version"]}")
-    implementation("androidx.compose.material:material:${rootProject.extra["compose_version"]}")
-    implementation("androidx.compose.ui:ui-tooling-preview:${rootProject.extra["compose_version"]}")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
-    implementation("androidx.activity:activity-compose:1.4.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
@@ -78,43 +79,29 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling:${rootProject.extra["compose_version"]}")
     debugImplementation("androidx.compose.ui:ui-test-manifest:${rootProject.extra["compose_version"]}")
 
-
-
-    // Compose dependencies
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
-    implementation ("androidx.navigation:navigation-compose:2.4.0-alpha08")
-    implementation ("com.google.accompanist:accompanist-flowlayout:0.17.0")
-
-    // Coroutines
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1")
-
-    // Coroutine Lifecycle Scopes
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
-    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
-
-    //Dagger - Hilt
-    implementation ("com.google.dagger:hilt-android:2.38.1")
-    kapt ("com.google.dagger:hilt-android-compiler:2.37")
-    implementation ("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
-    kapt ("androidx.hilt:hilt-compiler:1.0.0")
-    implementation ("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
-
-    // Coil
-    implementation ("io.coil-kt:coil-compose:1.4.0")
-
-    // Timber
-    implementation ("com.jakewharton.timber:timber:5.0.1")
-
-    // RamCosta Navigation
-    implementation ("io.github.raamcosta.compose-destinations:animations-core:1.3.4-beta")
-    ksp ("io.github.raamcosta.compose-destinations:ksp:1.3.4-beta")
-
+    implementation (Libraries.navigation_compose)
+    implementation (Libraries.flowlayout)
+    implementation (Libraries.coroutines)
+    implementation (Libraries.coroutines_core)
+    implementation (Libraries.viewmodel)
+    implementation (Libraries.runtime)
+     //Dagger - Hilt
+    implementation (Libraries.hilt)
+    implementation (Libraries.nav_compose)
+    implementation (Libraries.hilt_lifecycle)
+    kapt (Libraries.compiler)
+    kapt (Libraries.compiler_hilt)
+      // Coil
+    implementation (Libraries.coil)
+    implementation (Libraries.timber)
+    implementation (Libraries.raamcosta)
+    ksp (Libraries.ksp)
     // Retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation ("com.squareup.okhttp3:okhttp:5.0.0-alpha.2")
-    implementation ("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
+    implementation (Libraries.retrofit2)
+    implementation (Libraries.converter)
+    implementation (Libraries.logging)
+    implementation (Libraries.okhttp)
+
 }
 
 
