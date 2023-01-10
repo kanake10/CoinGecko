@@ -12,6 +12,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.geckocoin.core.Constants
 import com.example.geckocoin.core.Resource
 import com.example.geckocoin.domain.usecases.GetSingleExchangeUseCase
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @HiltViewModel
 class ExchangesDetailsViewModel @Inject constructor(
@@ -19,8 +21,8 @@ class ExchangesDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _state = mutableStateOf(ExchangesDetailsState())
-    val state: State<ExchangesDetailsState> = _state
+    private val _state = MutableStateFlow(ExchangesDetailsState())
+    val state: Flow<ExchangesDetailsState> = _state
 
     init {
         savedStateHandle.get<String>(Constants.PARAM_ID)?.let { id ->

@@ -9,6 +9,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -41,7 +43,7 @@ val description: String?,
 fun ExchangesDetailsScreen(
     viewModel: ExchangesDetailsViewModel = hiltViewModel()
 ) {
-    val state = viewModel.state.value
+    val state by viewModel.state.collectAsState(initial = ExchangesDetailsState())
 
     Box (
         Modifier.fillMaxSize()
